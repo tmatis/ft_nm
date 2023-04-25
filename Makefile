@@ -21,7 +21,8 @@ INCDIR := includes
 
 SRCS += main.c \
 		file.c \
-		symbols_set.c
+		symbols_set.c \
+		read_endian.c
 		
 
 OBJS_RELEASE := $(addprefix $(OBJSDIR_RELEASE)/, $(SRCS:.c=.o))
