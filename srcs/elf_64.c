@@ -79,7 +79,7 @@ int handle_elf_64(file_t *file, const char *file_name)
             for (size_t j = 0; j < shdr[i].sh_size / shdr[i].sh_entsize; j++)
             {
                 char *name = (char *)(file->data + shdr[shdr[i].sh_link].sh_offset + sym[j].st_name);
-                if (check_ptr(name, 1, file))
+                if (check_str(name, file))
                 {
                     log_error(file_name, "Invalid symbol name");
                     btree_symbol_t_clear(&symbols, NULL);

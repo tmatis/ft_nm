@@ -1,7 +1,7 @@
 NAME := ft_nm
 NAME_DEBUG := $(NAME)_debug
 CC := cc
-CFLAGS := -Wall -Wextra -Werror -no-pie
+CFLAGS := -Wall -Wextra -Werror
 LIBFTDIR := libft
 LIBFT := $(LIBFTDIR)/libft.a
 LIBFTINC := $(LIBFTDIR)/includes
