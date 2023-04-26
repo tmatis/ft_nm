@@ -14,14 +14,19 @@ endif
 
 # Directories
 SRCSDIR := srcs
-OBJSDIR_RELEASE := .build/release/
-OBJSDIR_DEBUG := .build/debug/
+OBJSDIR_RELEASE := .build/release
+OBJSDIR_DEBUG := .build/debug
 INCDIR := includes
 
 
 SRCS += main.c \
 		file.c \
-		symbols_set.c 
+		symbols_set.c \
+		check_elf.c \
+		log.c \
+		check_ptr.c \
+		elf_64.c \
+		elf_32.c
 		
 
 OBJS_RELEASE := $(addprefix $(OBJSDIR_RELEASE)/, $(SRCS:.c=.o))

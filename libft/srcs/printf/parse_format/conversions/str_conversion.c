@@ -14,6 +14,8 @@ void str_conversion(
     t_flags *flags,
     char *str)
 {
+    if (str == NULL)
+        str = "(null)";
     size_t size = ft_strlen(str);
     if (flags->precision > 0 && flags->precision < (int)size)
         size = flags->precision;

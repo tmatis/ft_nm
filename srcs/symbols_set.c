@@ -1,6 +1,7 @@
 #include <ft_char.h>
 #include <symbols_set.h>
 #include <elf.h>
+#include <ft_printf.h>
 
 
 static int compare_symbols_names(const char *a, const char *b)

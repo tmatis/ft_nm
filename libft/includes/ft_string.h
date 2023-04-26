@@ -114,4 +114,24 @@ char *ft_strchr(const char *s, int c);
  * @return char* a pointer to the duplicated string
  */
 char *ft_strdup(const char *s1);
+
+
+/**
+ * @brief Compare memory areas
+ * 
+ * @param s1 first memory area
+ * @param s2 second memory area
+ * @param n number of bytes to compare
+ * @return int 0 if the two memory areas are identical, otherwise the difference between the first two differing bytes
+ */
+int ft_memcmp(const void *s1, const void *s2, size_t n);
+
+/**
+ * @brief Return a string describing the error number
+ * 
+ * @param errnum the error number
+ * @return const char* the string describing the error number
+ */
+const char *ft_strerror(int errnum);
+
 #endif

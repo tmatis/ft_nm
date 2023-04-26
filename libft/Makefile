@@ -21,7 +21,9 @@ SRCS +=	string/ft_strlen.c \
 		string/ft_strpbrk.c \
 		string/ft_strspn.c \
 		string/ft_strtok.c \
-		string/ft_strdup.c
+		string/ft_strdup.c \
+		string/ft_memcmp.c \
+		string/ft_strerror.c
 
 # char files
 
