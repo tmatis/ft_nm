@@ -11,9 +11,9 @@ static int compare_symbols_names(const char *a, const char *b)
 
     while (a[i] && b[j])
     {
-        while (a[i] && !ft_isalpha(a[i]))
+        while (a[i] && !ft_isalnum(a[i]))
             i++;
-        while (b[j] && !ft_isalpha(b[j]))
+        while (b[j] && !ft_isalnum(b[j]))
             j++;
         char a_letter = ft_tolower(a[i]);
         char b_letter = ft_tolower(b[j]);

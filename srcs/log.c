@@ -1,9 +1,9 @@
 #include <ft_printf.h>
 #include <symbols_set.h>
-
-#define PROGRAM_NAME "ft_nm"
+#include <config.h>
 
 void log_error(const char* context, const char* message)
 {
-    ft_dprintf(STDERR_FILENO, "%s: %s: %s\n", PROGRAM_NAME, context, message);
+    config_t *config = get_config();
+    ft_dprintf(STDERR_FILENO, "%s: %s: %s\n", config->program_name, context, message);
 }

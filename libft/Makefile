@@ -31,7 +31,8 @@ SRCS += char/ft_isdigit.c \
 		char/ft_isalpha.c \
 		char/ft_isupper.c \
 		char/ft_islower.c \
-		char/ft_tolower.c
+		char/ft_tolower.c \
+		char/ft_isalnum.c
 
 # gnl files
 

@@ -100,6 +100,11 @@ int handle_elf_64(file_t *file, const char *file_name)
         }
     }
 
+    if (!symbols)
+    {
+        log_error(file_name, "no symbols");
+        return 1;
+    }
     btree_symbol_t_foreach(symbols, write_node_64);
     btree_symbol_t_clear(&symbols, NULL);
     return 0;

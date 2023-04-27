@@ -26,7 +26,8 @@ SRCS += main.c \
 		log.c \
 		check_ptr.c \
 		elf_64.c \
-		elf_32.c
+		elf_32.c \
+		config.c
 		
 
 OBJS_RELEASE := $(addprefix $(OBJSDIR_RELEASE)/, $(SRCS:.c=.o))
