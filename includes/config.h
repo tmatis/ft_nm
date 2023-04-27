@@ -14,6 +14,11 @@ typedef struct
 } args_t;
 
 #define OPT_MASK_HELP 1 << 0
+#define OPT_MASK_DEBUG_SYMS 1 << 1
+#define OPT_MASK_EXTERN_ONLY 1 << 2
+#define OPT_MASK_UNDEFINED 1 << 3
+#define OPT_MASK_REVERSE_SORT 1 << 4
+#define OPT_MASK_NO_SORT 1 << 5
 
 config_t *get_config();
 void display_help(void);

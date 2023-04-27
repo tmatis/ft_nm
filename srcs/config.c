@@ -15,6 +15,11 @@ typedef struct
  */
 static const option_t options[] = {
     {'h', "help", "Display this information", OPT_MASK_HELP},
+    {'a', "debug-syms", "Display debugger-only symbols", OPT_MASK_DEBUG_SYMS},
+    {'g', "extern-only", "Display only external symbols", OPT_MASK_EXTERN_ONLY},
+    {'u', "undefined-only", "Display only undefined symbols", OPT_MASK_UNDEFINED},
+    {'r', "reverse-sort", "Reverse the sense of the sort", OPT_MASK_REVERSE_SORT},
+    {'p', "no-sort", "Do not sort the symbols", OPT_MASK_NO_SORT},
     {0, NULL, NULL, 0}};
 
 static const option_t *search_option_by_letter(char **arg, const option_t *options)
