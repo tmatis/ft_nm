@@ -4,24 +4,33 @@
 #include <check_ptr.h>
 #include <log.h>
 #include <ft_printf.h>
+#include <ft_char.h>
+#include <config.h>
 
 static void write_node_32(symbol_t *symbol)
 {
     if (!symbol->name || !symbol->name[0])
         return;
-    if (symbol->value || symbol->type == 'T' || symbol->type == 't' || symbol->type == 'B' || symbol->type == 'b')
+    char type = ft_tolower(symbol->type);
+    if (symbol->value ||
+        type == 't' ||
+        symbol->type == 'b')
         ft_printf("%08lx", symbol->value);
     else
         ft_printf("%08s", "");
     ft_printf(" %c %s\n", symbol->type, symbol->name);
 }
 
-
-static char letter_from_symbol(Elf32_Sym *sym, Elf32_Shdr *shdr)
+static char letter_from_symbol(Elf32_Sym *sym, Elf32_Shdr *shdr, config_t *config)
 {
     char letter = '?';
     // if a file return 0
     if (ELF32_ST_TYPE(sym->st_info) == STT_FILE)
+        return 0;
+
+    if (is_option_set(OPT_MASK_EXTERN_ONLY, config) && ELF32_ST_BIND(sym->st_info) == STB_LOCAL)
+        return 0;
+    if (is_option_set(OPT_MASK_UNDEFINED, config) && sym->st_shndx != SHN_UNDEF)
         return 0;
 
     if (ELF32_ST_BIND(sym->st_info) == STB_WEAK)
@@ -51,11 +60,14 @@ static char letter_from_symbol(Elf32_Sym *sym, Elf32_Shdr *shdr)
         letter = 'D';
 
     if (letter != '?' && ELF32_ST_BIND(sym->st_info) == STB_LOCAL)
+    {
+
         letter += 32;
+    }
     return letter;
 }
 
-int handle_elf_32(file_t *file, const char *file_name)
+int handle_elf_32(file_t *file, const char *file_name, config_t *config)
 {
     btree_symbol_t *symbols = NULL;
     Elf32_Ehdr *ehdr = (Elf32_Ehdr *)file->data;
@@ -87,20 +99,24 @@ int handle_elf_32(file_t *file, const char *file_name)
                     return 1;
                 }
                 Elf32_Shdr *symbol_section = &shdr[sym[j].st_shndx];
-                char letter = letter_from_symbol(&sym[j], symbol_section);
+                char letter = letter_from_symbol(&sym[j], symbol_section, config);
                 if (!letter)
                     continue;
                 symbol_t s = {
                     .value = sym[j].st_value,
                     .type = letter,
                     .name = name,
-                    .index = sym[j].st_shndx
-                };
+                    .index = sym[j].st_shndx};
                 btree_symbol_t_insert(&symbols, &s);
             }
         }
     }
 
+    if (!symbols)
+    {
+        log_error(file_name, "no symbols");
+        return 1;
+    }
     btree_symbol_t_foreach(symbols, write_node_32);
     btree_symbol_t_clear(&symbols, NULL);
     return 0;

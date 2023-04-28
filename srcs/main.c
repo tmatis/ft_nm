@@ -9,7 +9,7 @@
 
 #define DEFAULT_PATH "a.out"
 
-static int handle_file(const char *file_name)
+static int handle_file(const char *file_name, config_t *config)
 {
     file_t file = file_load(file_name);
     if (!file.data)
@@ -25,7 +25,7 @@ static int handle_file(const char *file_name)
     // if 64 bits
     if (ehdr->e_ident[EI_CLASS] == ELFCLASS64)
     {
-        if (handle_elf_64(&file, file_name, get_config()))
+        if (handle_elf_64(&file, file_name, config))
         {
             file_close(&file);
             return 1;
@@ -34,7 +34,7 @@ static int handle_file(const char *file_name)
     // if 32 bits
     else
     {
-        if (handle_elf_32(&file, file_name))
+        if (handle_elf_32(&file, file_name, config))
         {
             file_close(&file);
             return 1;
@@ -62,7 +62,7 @@ int main(int argc, char **argv)
 
     if (args.argc == 0)
     {
-        if (handle_file(DEFAULT_PATH))
+        if (handle_file(DEFAULT_PATH, config))
             return 1;
     }
     else
@@ -71,7 +71,7 @@ int main(int argc, char **argv)
         {
             if (args.argc > 1)
                 ft_printf("\n%s:\n", args.argv[i]);
-            if (handle_file(args.argv[i]))
+            if (handle_file(args.argv[i], config))
                 return 1;
         }
     }
