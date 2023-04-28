@@ -12,7 +12,7 @@ MY_BIN=./ft_nm
 error=0
 
 function execute_test_sort {
-    echo -ne "Running test (sorted) ${BOLD}${YELLOW}nm $2 $1${RESET}: "
+    echo -ne "Running test ${BOLD}${YELLOW}nm $2 $1${RESET}: "
     # if $2 is not empty
     if [ ! -z "$2" ]; then
         $ORIGINAL_BIN $2 $1 | sort > original_output
