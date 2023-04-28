@@ -2,7 +2,7 @@
 #include <symbols_set.h>
 #include <elf.h>
 #include <ft_printf.h>
-
+#include <config.h>
 
 static int compare_symbols_names(const char *a, const char *b)
 {
@@ -40,7 +40,7 @@ static long int compare_symbols_values(unsigned long a, unsigned long b)
     return a - b;
 }
 
-static int compare_symbols(symbol_t *a, symbol_t *b)
+static int standard_compare_symbols(symbol_t *a, symbol_t *b)
 {
     int cmp = compare_symbols_names(a->name, b->name);
     if (cmp)
@@ -52,6 +52,16 @@ static int compare_symbols(symbol_t *a, symbol_t *b)
     if (cmp)
         return cmp;
     return compare_symbols_values(a->value, b->value);
+}
+
+static int compare_symbols(symbol_t *a, symbol_t *b)
+{
+    config_t *config = get_config();
+    if (is_option_set(OPT_MASK_REVERSE_SORT, config))
+        return -standard_compare_symbols(a, b);
+    if (is_option_set(OPT_MASK_NO_SORT, config))
+        return 1;
+    return standard_compare_symbols(a, b);
 }
 
 DEFINE_BTREE_FUNCTIONS(symbol_t, compare_symbols);

@@ -25,7 +25,7 @@ static int handle_file(const char *file_name)
     // if 64 bits
     if (ehdr->e_ident[EI_CLASS] == ELFCLASS64)
     {
-        if (handle_elf_64(&file, file_name))
+        if (handle_elf_64(&file, file_name, get_config()))
         {
             file_close(&file);
             return 1;
@@ -69,7 +69,8 @@ int main(int argc, char **argv)
     {
         for (int i = 0; i < args.argc; i++)
         {
-            ft_printf("\n%s:\n", args.argv[i]);
+            if (args.argc > 1)
+                ft_printf("\n%s:\n", args.argv[i]);
             if (handle_file(args.argv[i]))
                 return 1;
         }
