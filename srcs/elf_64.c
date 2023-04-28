@@ -39,15 +39,10 @@ static char letter_from_symbol(Elf64_Sym *sym, Elf64_Shdr *shdr, config_t *confi
         if (sym->st_shndx == SHN_UNDEF)
             return 'w';
     }
-
-    else if (ELF64_ST_TYPE(sym->st_info) == STT_FUNC)
-    {
-        letter = 'T';
-        if (sym->st_shndx == SHN_UNDEF)
-            return 'U';
-    }
     else if (sym->st_shndx == SHN_UNDEF)
         letter = 'U';
+    else if (ELF64_ST_TYPE(sym->st_info) == STT_FUNC)
+        letter = 'T';
     // is in .bss section it's B
     else if (shdr->sh_type == SHT_NOBITS)
         letter = 'B';
@@ -60,10 +55,7 @@ static char letter_from_symbol(Elf64_Sym *sym, Elf64_Shdr *shdr, config_t *confi
         letter = 'D';
 
     if (letter != '?' && ELF64_ST_BIND(sym->st_info) == STB_LOCAL)
-    {
-
         letter += 32;
-    }
     return letter;
 }
 
