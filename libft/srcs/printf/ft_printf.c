@@ -72,7 +72,7 @@ int ft_dprintf(int fd, const char *format, ...)
     printf_buffer_t printf_buffer = buffer_printf_init(
         PRINTF_WRITE_MODE,
         fd);
-    if (printf_buffer.error_number != 0)
+    if (printf_buffer.str == NULL)
         return (-1);
     va_list args;
     va_start(args, format);
@@ -95,7 +95,7 @@ int ft_snprintf(char *str, size_t size, const char *format, ...)
     printf_buffer_t printf_buffer = buffer_printf_init(
         PRINTF_BUFFER_MODE,
         STDOUT_FILENO);
-    if (printf_buffer.error_number != 0)
+    if (printf_buffer.str == NULL)
         return (-1);
     va_list args;
     va_start(args, format);
@@ -121,7 +121,7 @@ int ft_asprintf(char **str, const char *format, ...)
     printf_buffer_t printf_buffer = buffer_printf_init(
         PRINTF_BUFFER_MODE,
         STDOUT_FILENO);
-    if (printf_buffer.error_number != 0)
+    if (printf_buffer.str == NULL)
         return (-1);
     va_list args;
     va_start(args, format);
