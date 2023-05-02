@@ -14,6 +14,7 @@ static void write_node_32(symbol_t *symbol)
     char type = ft_tolower(symbol->type);
     if (symbol->value ||
         type == 't' ||
+        type == 'r' ||
         symbol->type == 'b')
         ft_printf("%08lx", symbol->value);
     else

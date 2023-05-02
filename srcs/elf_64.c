@@ -14,6 +14,7 @@ static void write_node_64(symbol_t *symbol)
     char type = ft_tolower(symbol->type);
     if (symbol->value ||
         type == 't' ||
+        type == 'r' ||
         symbol->type == 'b')
         ft_printf("%016lx", symbol->value);
     else
