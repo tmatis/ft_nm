@@ -7,8 +7,8 @@ LIBFT := $(LIBFTDIR)/libft.a
 LIBFTINC := $(LIBFTDIR)/includes
 LIBS := -L $(LIBFTDIR) -lft
 
-# if make debug add -g
-ifneq ($(filter debug, $(MAKECMDGOALS)),)
+# if make debug redebug add -g
+ifneq ($(filter debug redebug,$(MAKECMDGOALS)),)
 	CFLAGS += -g
 endif
 
